@@ -58,7 +58,7 @@ class Input:
     'á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'ã', 'õ', 'â',
     'ê', 'î', 'ô', 'û', 'ç',
     'Á', 'É', 'Í', 'Ó', 'Ú', 'À', 'È', 'Ì', 'Ò', 'Ù', 'Ã', 'Õ', 'Â',
-    'Ê', 'Î', 'Ô', 'Û', 'Ç', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    'Ê', 'Î', 'Ô', 'Û', 'Ç', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','@']
         
         self.loop = True
         while self.loop:
@@ -75,26 +75,42 @@ class Input:
                         self.clean()
                         self.loop = False
                 if events.type == pygame.KEYDOWN:
-                    self.keys = pygame.key.name(events.key)
-                    if self.keys in self.abnt2:
-                        self.texts+=self.keys
-                        self.text_blit = tools.insert_text(text=self.texts,
-                                                           color=self.color_title,
-                                                           size=self.size_title,
-                                                           color2=self.color)
-                        self.size_text_blit = self.text_blit.get_size()
-                        if self.size_text_blit[0] >= self.size[0]:
-                            if events.key != pygame.K_BACKSPACE or events.key != pygame.K_RETURN:
-                                self.k_backspace()
-                        self.window.blit(self.text_blit, (self.coordinates[0],self.coordinates_text[1]))
-                        pygame.display.flip()
-                    if events.key == pygame.K_RETURN:
-                        self.clean()
-                        if self.tags == "BACKUP":
-                            self.window.blit(self.backup,(0,0))
-                        return self.texts_off
-                    if events.key == pygame.K_BACKSPACE:
-                        self.k_backspace()
+                    if pygame.key.get_mods() & pygame.KMOD_LSHIFT:
+                        if events.key == pygame.K_2:
+                            self.texts+="@"
+                            self.text_blit = tools.insert_text(text=self.texts,
+                                                            color=self.color_title,
+                                                            size=self.size_title,
+                                                            color2=self.color)
+                            self.size_text_blit = self.text_blit.get_size()
+                            if self.size_text_blit[0] >= self.size[0]:
+                                if events.key != pygame.K_BACKSPACE or events.key != pygame.K_RETURN:
+                                    self.k_backspace()
+                            self.window.blit(self.text_blit, (self.coordinates[0],self.coordinates_text[1]))
+                            pygame.display.flip()
+                            
+                    else:
+                        self.keys = pygame.key.name(events.key)
+                        if self.keys in self.abnt2:
+                            self.texts+=self.keys
+                            self.text_blit = tools.insert_text(text=self.texts,
+                                                            color=self.color_title,
+                                                            size=self.size_title,
+                                                            color2=self.color)
+                            self.size_text_blit = self.text_blit.get_size()
+                            if self.size_text_blit[0] >= self.size[0]:
+                                if events.key != pygame.K_BACKSPACE or events.key != pygame.K_RETURN:
+                                    self.k_backspace()
+                            self.window.blit(self.text_blit, (self.coordinates[0],self.coordinates_text[1]))
+                            pygame.display.flip()
+                        if events.key == pygame.K_RETURN:
+                            self.clean()
+                            if self.tags == "BACKUP":
+                                self.window.blit(self.backup,(0,0))
+                            return self.texts_off
+                        if events.key == pygame.K_BACKSPACE:
+                            self.k_backspace()
+                    
         self.clear_window()
     def clean(self):
         self.title = tools.insert_text(text=self.text_title,
