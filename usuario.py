@@ -11,6 +11,7 @@ import funcionais.consultarAtendimento
 import funcionais.incluir
 import funcionais.excluir
 import funcionais.alterar as alterar
+import funcionais.incluirUsuario
 import main_menu
 
 pygame.init()
@@ -28,13 +29,12 @@ class UsuarioTela:
         self.__botoes = self.__tela_botoes()
         self.__logins = login.Login(self.__menu,["1234","4321"])
     def __incluir(self):
-        incluindo = funcionais.incluir.Incluir(menu=self.__menu,
+        incluindo = funcionais.incluirUsuario.Incluir(menu=self.__menu,
                                                size_button=[400, 50],
                                                coordinates_button=[300, 450],
-                                               title_button="MATRICULA",
                                                color_button="black",
                                                color_title="white")
-        incluindo.pack()
+        incluindo.user()
 
     def __alterar(self):
         alterando = alterar.Alterar(menu=self.__menu,
